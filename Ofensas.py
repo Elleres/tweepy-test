@@ -40,15 +40,15 @@ user2_last_tweet = last_tweet(user2_user, 1)
 # LOOP TO KEEP SEARCHING FOR NEW TWEETS
 while True:
     sleep(10)
-    yuri_user_tweets = api.user_timeline(user_id=user1_user.id, count=1)
-    ana_user_tweets = api.user_timeline(user_id=user2_user.id, count=1)
-    for tweet in yuri_user_tweets:
+    user1_user_tweets = api.user_timeline(user_id=user1_user.id, count=1)
+    user2_user_tweets = api.user_timeline(user_id=user2_user.id, count=1)
+    for tweet in user1_user_tweets:
         if tweet.id > user1_last_tweet and tweet.id not in tweets_res and tweet.retweeted == False:
             api.update_status(status=lista_ofensas[randint(0, 7)], in_reply_to_status_id=tweet.id,
                               auto_populate_reply_metadata=True)
             tweets_res.append(tweet.id)
             print(f'Resposta Tweetada para {user1_user.screen_name}, {tweet.text}')
-    for tweet in ana_user_tweets:
+    for tweet in user2_user_tweets:
         if tweet.id > user2_last_tweet and tweet.id not in tweets_res and tweet.retweeted == False:
             api.update_status(status='STATUS THAT YOU WANT TO TWEET',
                               in_reply_to_status_id=tweet.id, auto_populate_reply_metadata=True)
